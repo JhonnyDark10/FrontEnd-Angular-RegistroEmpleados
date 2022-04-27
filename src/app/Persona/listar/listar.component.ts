@@ -11,8 +11,10 @@ import { ServiceService } from 'src/app/Service/service.service';
 })
 export class ListarComponent implements OnInit {
 
-  personas:Persona[] | undefined;
-  
+  personas:Persona[] = [];
+  public page : number =0;
+  public serch : string ='';
+
   constructor(private service:ServiceService, private router:Router) { }
 
   ngOnInit(){
@@ -22,20 +24,37 @@ export class ListarComponent implements OnInit {
 
   }
 
+  nextPage(){
+    this.page +=10;
+  }
+
+  prevPage(){
+    if(this.page > 0)
+     this.page -=10;
+  }
+
+
   Editar(persona:Persona){
    localStorage.setItem("id",persona.id.toString());
    this.router.navigate(["edit"]);
   }
 
   Delete(persona:Persona){
-    this.service.deletePersona(persona)
-    .subscribe(data=>{
-      this.personas=this.personas?.filter(p=>p!==persona);
-     
-      
-    })
-    alert("usuario eliminado..");
-    this.router.navigate(["add"]);
+    if(confirm('Seguro que desea eliminar el empleado')){
+      this.service.deletePersona(persona)
+      .subscribe(data=>{
+        this.personas=this.personas?.filter(p=>p!==persona);    
+      })
+      alert("usuario eliminado..");
+      this.router.navigate(["add"]);
+    }
+ 
+   
+   }
+
+   onSeach(search: string){
+      this.page = 0;
+      this.serch = search;
    }
 
 }

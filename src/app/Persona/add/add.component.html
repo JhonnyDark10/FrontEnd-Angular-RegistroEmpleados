@@ -4,24 +4,25 @@
             <h3>Registrar Nuevo Empleado</h3>
         </div>
         <div class="card-body">
-            <form action="" >
+            <form action="" #f="ngForm">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                        <label for="">Apellido Paterno:</label>
+                        <label for="">*Apellido Paterno:</label>
                         <input placeholder="Por ejemplo, Flores"
-                        minlength="1" maxlength="20"  required 
-                       
+                        minlength="1" maxlength="20" 
+                          
+                        pattern="^[a-zA-Z\s]{2,20}"
                         type="text" class="form-control"  [(ngModel)]="modelPersona.usuApellidopaterno" name="usuApellidopaterno"
-                       
-                        >
+                        required>
                         </div>
                    </div>
-    
+                   
                     <div class="col-md-4"> 
                         <div class="form-group">
-                        <label for="">Apellido Materno:</label>
+                        <label for="">*Apellido Materno:</label>
                         <input 
+                        pattern="^[a-zA-Z\s]{2,20}"
                         placeholder="Por ejemplo, Pozo"
                         minlength="1" maxlength="20"  required 
                         type="text" class="form-control" [(ngModel)]="modelPersona.usuApellidomaterno" name="usuApellidomaterno" >
@@ -32,11 +33,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="">Primer Nombre:</label>
+                            <label for="">*Primer Nombre:</label>
                             <input
-                            placeholder="Por ejemplo, Jhonny"
+                            placeholder="Por ejemplo, Jhonny" pattern="^[a-zA-Z\s]{2,20}"
                             minlength="1" maxlength="20"  required 
                             type="text" class="form-control" [(ngModel)]="modelPersona.usuPrimernombre" name="usuPrimernombre" >
+                           
                            </div>
                    </div>
     
@@ -44,8 +46,8 @@
                         <div class="form-group">
                             <label for="">Segundo Nombre:</label>
                             <input 
-                            placeholder="Por ejemplo, Segundo"
-                           minlength="1" maxlength="20"  required 
+                            placeholder="Por ejemplo, Segundo" pattern="^[a-zA-Z\s]{2,50}"
+                           minlength="1" maxlength="20"   
                             type="text" class="form-control" [(ngModel)]="modelPersona.usuSegundonombre" name="usuSegundonombre">
                            </div>
                     </div>       
@@ -54,11 +56,11 @@
               
                 <div class="row">
                     <div class="col-md-4"> 
-                        <label for="">Tipo de Identificación</label>
+                        <label for="">*Tipo de Identificación:</label>
                         <div class="form-group">
                            
                             
-                            <select [(ngModel)]="modelPersona.usuIdTipo" name="usuIdTipo">
+                            <select [(ngModel)]="modelPersona.usuIdTipo" name="usuIdTipo" >
                                 <!-- Opciones del Combo -->
                                 <option 
                                 *ngFor="let tipo of tipos"  [ngValue]="tipo"
@@ -69,24 +71,24 @@
     
                     <div class="col-md-4"> 
                         <div class="form-group">
-                            <label for="">Numero de Identificación</label>
+                            <label for="">*Numero de Identificación:</label>
                             <input 
-                            placeholder="Por ejemplo, 2400269288"
-                            minlength="1" maxlength="20"  required
+                            placeholder="Por ejemplo, xxxxxxxxxx"
+                            minlength="1" maxlength="20"  required pattern="^[a-zA-Z\s/0-9/ -]{2,20}"
                             type="text" class="form-control" [(ngModel)]="modelPersona.usuNumeroidentificacion" name="usuNumeroidentificacion">
                            </div>
                     </div>       
                 </div>
-               
+              
                
                
                 <div class="row">
                     <div class="col-md-4"> 
-                        <label for="">Area</label>
+                        <label for="">*Area:</label>
                         <div class="form-group">
                            
                             
-                            <select  [(ngModel)]="modelPersona.usuIdArea" name="usuIdArea">
+                            <select  [(ngModel)]="modelPersona.usuIdArea" name="usuIdArea" >
                                 <!-- Opciones del Combo -->
                                 <option 
                                 *ngFor="let areas of area"  [ngValue]="areas"
@@ -96,7 +98,7 @@
                    </div>
     
                    <div class="col-md-4"> 
-                    <label for="">Pais</label>
+                    <label for="">*Pais:</label>
                     <div class="form-group" >
                        
                         
@@ -114,15 +116,15 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="">Fecha de Ingreso:</label>
-                            <input type="date" class="form-control" [(ngModel)]="modelPersona.usuFechaingreso" name="usuFechaingreso">
+                            <label for="">*Fecha de Ingreso:</label>
+                            <input type="date" class="form-control" [(ngModel)]="modelPersona.usuFechaingreso" name="usuFechaingreso" required>
                            </div>
                    </div>
     
                     <div class="col-md-4"> 
                         <div class="form-group">
                             <label for="">Fecha de Registro:</label>
-                            <input readonly type="date" class="form-control" [(ngModel)]="modelPersona.usuFechahoraregistro" name="usuFechahoraregistro">
+                            <input readonly type="datetime" class="form-control" [(ngModel)]="modelPersona.usuFechahoraregistro" name="usuFechahoraregistro">
                            </div>
                     </div>       
                 </div>
@@ -131,7 +133,7 @@
                 
                
            
-            <button (click)="Guardar(modelPersona)" class="btn btn-danger">
+            <button (click)="Guardar(modelPersona)" class="btn btn-danger" [disabled]="f.invalid">
                 Guardar
             </button>
             </form>

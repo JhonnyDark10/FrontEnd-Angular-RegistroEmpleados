@@ -1,7 +1,15 @@
+
 <div class="container">
     <div class="ca">
         <div class="card-header">
             <h3>Listado de Empleados</h3>
+            &nbsp; &nbsp; &nbsp;
+            <input type="text"
+            class="form-control"
+            placeholder="Buscar empleado es sencible a mayuscula y minuscula"
+            #txtSearch
+            (keyup)="onSeach(txtSearch.value)"/>
+            
         </div>
         <div class="card-body">
             <table class="table table-hover">
@@ -11,23 +19,25 @@
                         <th>Nombres</th>
                         <th>Pais</th>
                         <th>Tipo de Identificación</th>
-                        <th>Numero de Identifiación</th>
+                        <th>Numero de Identificación</th>
                         <th>Area</th>
                         <th>Correo</th>
                         <th>Fecha de Ingreso</th>
+                        <th>Fecha/Hora de Registro</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let persona of personas" class="text-center">
+                    <tr *ngFor="let persona of personas | filtro:page:serch" class="text-center">
                         <td>{{persona.id}}</td>
-                        <td>{{persona.usuApellidopaterno}} {{persona.usuApellidomaterno}}  {{persona.usuPrimernombre}} {{persona.usuSegundonombre}}</td>
+                        <td>{{persona.usuApellidopaterno}} {{persona.usuApellidomaterno}} {{persona.usuPrimernombre}} {{persona.usuSegundonombre}}</td>
                         <td>{{persona.usuIdPais.paisDescripcion}}</td>
                         <td>{{persona.usuIdTipo.tipoidentificacionDescripcion}}</td>
                         <td>{{persona.usuNumeroidentificacion}}</td>
                         <td>{{persona.usuIdArea.areaDescripcion}}</td>
                         <td>{{persona.usuCorreo}}</td>
                         <td>{{persona.usuFechaingreso}}</td>
+                        <td>{{persona.usuFechahoraregistro}}</td>
                         <td>
                             <button (click)="Editar(persona)" class="btn btn-warning">Editar</button>
                             <button (click)="Delete(persona)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
@@ -35,6 +45,15 @@
                     </tr>
                 </tbody>
             </table>
+
+            <button (click)="prevPage()" class="btn btn-primary">
+                Anterior
+            </button>
+            &nbsp;
+            <button (click)="nextPage()" class="btn btn-primary"
+                [disabled]="(personas | filtro:page:serch).length === 0">
+                Siguiente
+            </button>
         </div>
     </div>
 </div>

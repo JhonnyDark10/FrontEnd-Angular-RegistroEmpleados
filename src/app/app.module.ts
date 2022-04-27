@@ -9,6 +9,7 @@ import {FormsModule}from '@angular/forms';
 import {ServiceService} from '../app/Service/service.service';
 import {HttpClientModule} from '@angular/common/http';
 import { EditComponent } from './Persona/edit/edit.component';
+import { FiltroPipe } from './Persona/pipes/filtro.pipe';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { EditComponent } from './Persona/edit/edit.component';
     AppComponent,
     ListarComponent,
     AddComponent,
-    EditComponent
+    EditComponent,
+    FiltroPipe
   ],
   imports: [
     BrowserModule,
